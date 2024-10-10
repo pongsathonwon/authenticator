@@ -18,9 +18,5 @@ type ColorConfig = {
 export const generateTimerGradient =
   ({ color1, color2 }: ColorConfig) =>
   (ratio: number) => {
-    if (ratio > 1) {
-      const newRatio = ratio - Math.floor(ratio);
-      return `conic-gradient(${color1}, ${color1} ${newRatio}turn, ${color2} ${newRatio}turn)`;
-    }
     return `conic-gradient(${color1}, ${color1} ${ratio}turn, ${color2} ${ratio}turn)`;
   };

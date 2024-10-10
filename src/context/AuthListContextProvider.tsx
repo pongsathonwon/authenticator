@@ -15,12 +15,6 @@ const mock: AuthList[] = [
     digit: ["000", "000"],
     time: 10000,
   },
-  {
-    name: "b",
-    code: "a",
-    digit: ["000", "000"],
-    time: 10000,
-  },
 ];
 
 const AuthListContext = createContext<{

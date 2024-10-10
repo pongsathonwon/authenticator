@@ -23,7 +23,7 @@ function Form({ onClose }: FormProps) {
     setCode("");
     setTime(30);
   };
-
+  const isFormInalid = name === "" || code === "" || time < 5 || isError;
   return (
     <>
       {isError && (
@@ -90,6 +90,7 @@ function Form({ onClose }: FormProps) {
               submit();
               onClose();
             }}
+            disabled={isFormInalid}
             style={{
               flex: "1 1 auto",
               margin: "0 auto",

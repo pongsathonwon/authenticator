@@ -10,15 +10,16 @@ type RowProps = Omit<AuthList, "code"> & {
 };
 
 const useColorTimer = (time: number) => {
-  const STEP = 100;
+  const STEP = 200;
   const [ratio, setRatio] = useState(0);
-  const color1 = "black";
-  const color2 = "white";
+  const timeLeft = time - ratio;
+  const color1 = "white";
+  const color2 = timeLeft > 5000 ? "lightblue" : "tomato";
   const baseColor = generateTimerGradient({ color1, color2 });
-  const timerCss = baseColor((ratio * STEP) / time);
+  const timerCss = baseColor(ratio / time);
   useEffect(() => {
     const id = setInterval(() => {
-      setRatio((r) => r + 1);
+      setRatio((r) => (r + STEP > time ? r + STEP - time : r + STEP));
     }, STEP);
     return () => clearInterval(id);
   }, []);
