@@ -1,22 +1,9 @@
 import React, { createContext, PropsWithChildren, useContext } from "react";
 import "./App.css";
-import { AuthList } from "./lib/types";
 import Row from "./components/Row";
 import Form from "./components/Form";
 import { useAuthListContext } from "./context/AuthListContextProvider";
-
-const mock: AuthList[] = [
-  {
-    name: "a",
-    code: ["000", "000"],
-    timeout: 10000,
-  },
-  {
-    name: "b",
-    code: ["000", "000"],
-    timeout: 10000,
-  },
-];
+import AddBtn from "./components/AddBtn";
 
 function App() {
   const { list } = useAuthListContext();
@@ -24,12 +11,25 @@ function App() {
   return (
     <section className="container">
       <h1 className="header">Authenticator app</h1>
+      {showForm && (
+        <div
+          style={{
+            position: "absolute",
+            left: "0",
+            width: "100vw",
+            zIndex: 100,
+          }}
+        >
+          <Form />
+        </div>
+      )}
       <div className="content">
         <ul style={{ listStyle: "none", padding: "0" }}>
-          {list.map(({ name, code, timeout }) => (
-            <Row key={name} {...{ name, code, timeout }} />
+          {list.map(({ name, code, digit, time }) => (
+            <Row key={code} {...{ name, digit, time }} />
           ))}
         </ul>
+        <AddBtn showForm={showForm} onClick={() => setShowForm((p) => !p)} />
       </div>
     </section>
   );

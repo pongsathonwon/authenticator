@@ -1,4 +1,4 @@
-import {
+import React, {
   createContext,
   Dispatch,
   PropsWithChildren,
@@ -11,13 +11,15 @@ import { AuthList } from "../lib/types";
 const mock: AuthList[] = [
   {
     name: "a",
-    value: ["000", "000"],
-    timeout: 10000,
+    code: "a",
+    digit: ["000", "000"],
+    time: 10000,
   },
   {
     name: "b",
-    value: ["000", "000"],
-    timeout: 10000,
+    code: "a",
+    digit: ["000", "000"],
+    time: 10000,
   },
 ];
 
@@ -28,8 +30,9 @@ const AuthListContext = createContext<{
 } | null>(null);
 
 export const AuthListContextProvider = ({ children }: PropsWithChildren) => {
+  console.log("call");
   const [list, setList] = useState<AuthList[]>(mock);
-  const listKey = Object.keys(list);
+  const listKey = list.map(({ name }) => name);
   return (
     <AuthListContext.Provider value={{ list, setList, listKey }}>
       {children}

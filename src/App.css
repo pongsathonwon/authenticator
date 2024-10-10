@@ -16,13 +16,14 @@
 .content {
   padding-bottom: 2.5rem;
   position: relative;
+  min-height: 15rem;
 }
 
 .fieldset {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  width: 50%;
+  width: 80%;
   margin: 0 auto;
 }
 
@@ -33,13 +34,22 @@
 .btn__add {
   position: absolute;
   margin: 0;
-  padding: 0;
+  padding: 0.5rem;
   right: 0;
   bottom: 0;
   border-radius: 9999px;
-  width: fit-content;
+  width: 2rem;
   aspect-ratio: 1;
   background-color: white;
   color: black;
   border: none;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  transition: all 0.4s;
+}
+
+.rotate45 {
+  rotate: z 45deg;
 }

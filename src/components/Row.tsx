@@ -1,9 +1,9 @@
 import React from "react";
 import { AuthList } from "../lib/types";
 
-type RowProps = AuthList;
+type RowProps = Omit<AuthList, "code">;
 
-function Row({ name, value, timeout }: RowProps) {
+function Row({ name, digit, time }: RowProps) {
   return (
     <li
       style={{
@@ -22,8 +22,8 @@ function Row({ name, value, timeout }: RowProps) {
         }}
       >
         <div style={{ display: "flex", gap: "1rem" }}>
-          <span>{value[0]}</span>
-          <span>{value[1]}</span>
+          <span>{digit[0]}</span>
+          <span>{digit[1]}</span>
         </div>
         <div style={{ width: "2rem", height: "2rem", borderRadius: "9999px" }}>
           {timeout / 1000}
