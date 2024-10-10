@@ -5,6 +5,7 @@ import Form from "./components/Form";
 import { useAuthListContext } from "./context/AuthListContextProvider";
 import AddBtn from "./components/AddBtn";
 import useCopyToClipboard from "./hook/useClipboard";
+import UploadQr from "./components/UploadQr";
 
 function App() {
   const { list } = useAuthListContext();
@@ -42,6 +43,7 @@ function App() {
             />
           ))}
         </ul>
+        <UploadQr />
         <AddBtn showForm={showForm} onClick={() => setShowForm((p) => !p)} />
       </div>
     </section>
