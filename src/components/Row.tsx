@@ -26,7 +26,7 @@ function Row({ name, digit, time }: RowProps) {
           <span>{digit[1]}</span>
         </div>
         <div style={{ width: "2rem", height: "2rem", borderRadius: "9999px" }}>
-          {timeout / 1000}
+          {time / 1000}
         </div>
       </div>
     </li>

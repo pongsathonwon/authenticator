@@ -20,13 +20,13 @@ function App() {
             zIndex: 100,
           }}
         >
-          <Form />
+          <Form onClose={() => setShowForm(false)} />
         </div>
       )}
       <div className="content">
         <ul style={{ listStyle: "none", padding: "0" }}>
           {list.map(({ name, code, digit, time }) => (
-            <Row key={code} {...{ name, digit, time }} />
+            <Row key={name} {...{ name, digit, time }} />
           ))}
         </ul>
         <AddBtn showForm={showForm} onClick={() => setShowForm((p) => !p)} />
