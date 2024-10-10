@@ -1,9 +1,28 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { AuthList } from "../lib/types";
+import { useAuthListContext } from "../context/AuthListContextProvider";
+import { genDigit } from "../lib/util";
 
 type RowProps = Omit<AuthList, "code">;
 
 function Row({ name, digit, time }: RowProps) {
+  const { setList } = useAuthListContext();
+  // count down
+  useEffect(() => {
+    const id = setTimeout(() => {
+      setList((l) =>
+        l.map((al) => (al.name === name ? { ...al, digit: genDigit() } : al))
+      );
+    }, time);
+    return () => clearTimeout(id);
+  }, [name, digit]);
+  // handle css countdown
+  useEffect(() => {
+    const id = setInterval(() => {
+      console.log(time - 1000, name);
+    }, time / 10);
+    return () => clearInterval(id);
+  }, []);
   return (
     <li
       style={{
