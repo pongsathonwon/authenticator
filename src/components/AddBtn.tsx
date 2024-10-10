@@ -1,5 +1,3 @@
-import React from "react";
-
 type AddBtnProps = { showForm: boolean; onClick: () => void };
 
 function AddBtn({ showForm, onClick }: AddBtnProps) {

@@ -1,4 +1,4 @@
-import React, { createContext, PropsWithChildren, useContext } from "react";
+import React from "react";
 import "./App.css";
 import Row from "./components/Row";
 import Form from "./components/Form";
@@ -25,7 +25,7 @@ function App() {
       )}
       <div className="content">
         <ul style={{ listStyle: "none", padding: "0" }}>
-          {list.map(({ name, code, digit, time }) => (
+          {list.map(({ name, digit, time }) => (
             <Row key={name} {...{ name, digit, time }} />
           ))}
         </ul>

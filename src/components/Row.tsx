@@ -1,9 +1,25 @@
-import React, { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { AuthList } from "../lib/types";
 import { useAuthListContext } from "../context/AuthListContextProvider";
-import { genDigit } from "../lib/util";
+import { genDigit, generateTimerGradient } from "../lib/util";
 
 type RowProps = Omit<AuthList, "code">;
+
+const useColorTimer = (time: number) => {
+  const STEP = 100;
+  const [ratio, setRatio] = useState(0);
+  const color1 = "black";
+  const color2 = "white";
+  const baseColor = generateTimerGradient({ color1, color2 });
+  const timerCss = baseColor((ratio * STEP) / time);
+  useEffect(() => {
+    const id = setInterval(() => {
+      setRatio((r) => r + 1);
+    }, STEP);
+    return () => clearInterval(id);
+  }, []);
+  return timerCss;
+};
 
 function Row({ name, digit, time }: RowProps) {
   const { setList } = useAuthListContext();
@@ -16,13 +32,9 @@ function Row({ name, digit, time }: RowProps) {
     }, time);
     return () => clearTimeout(id);
   }, [name, digit]);
-  // handle css countdown
-  useEffect(() => {
-    const id = setInterval(() => {
-      console.log(time - 1000, name);
-    }, time / 10);
-    return () => clearInterval(id);
-  }, []);
+
+  // change color
+  const timerCss = useColorTimer(time);
   return (
     <li
       style={{
@@ -44,9 +56,14 @@ function Row({ name, digit, time }: RowProps) {
           <span>{digit[0]}</span>
           <span>{digit[1]}</span>
         </div>
-        <div style={{ width: "2rem", height: "2rem", borderRadius: "9999px" }}>
-          {time / 1000}
-        </div>
+        <div
+          style={{
+            width: "2rem",
+            height: "2rem",
+            borderRadius: "9999px",
+            background: timerCss,
+          }}
+        ></div>
       </div>
     </li>
   );
