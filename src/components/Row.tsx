@@ -2,8 +2,12 @@ import { useEffect, useState } from "react";
 import { AuthList } from "../lib/types";
 import { useAuthListContext } from "../context/AuthListContextProvider";
 import { genDigit, generateTimerGradient } from "../lib/util";
+import useCopyToClipboard from "../hook/useClipboard";
 
-type RowProps = Omit<AuthList, "code">;
+type RowProps = Omit<AuthList, "code"> & {
+  copyValue: string | null;
+  handleCopy: () => Promise<void>;
+};
 
 const useColorTimer = (time: number) => {
   const STEP = 100;
@@ -21,7 +25,7 @@ const useColorTimer = (time: number) => {
   return timerCss;
 };
 
-function Row({ name, digit, time }: RowProps) {
+function Row({ name, digit, time, copyValue, handleCopy }: RowProps) {
   const { setList } = useAuthListContext();
   // count down
   useEffect(() => {
@@ -35,8 +39,12 @@ function Row({ name, digit, time }: RowProps) {
 
   // change color
   const timerCss = useColorTimer(time);
+  const currentDigit = digit[0] + digit[1];
+
+  const isDigitCopied = currentDigit === copyValue;
   return (
     <li
+      onClick={handleCopy}
       style={{
         display: "flex",
         flexDirection: "column",
@@ -45,7 +53,10 @@ function Row({ name, digit, time }: RowProps) {
         borderBottom: "1px solid lightgray",
       }}
     >
-      <h2>{name}</h2>
+      <div style={{ display: "flex", justifyContent: "space-between" }}>
+        <h2>{name}</h2>
+        {isDigitCopied && <span>copied</span>}
+      </div>
       <div
         style={{
           display: "flex",

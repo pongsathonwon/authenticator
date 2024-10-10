@@ -30,7 +30,6 @@ const AuthListContext = createContext<{
 } | null>(null);
 
 export const AuthListContextProvider = ({ children }: PropsWithChildren) => {
-  console.log("call");
   const [list, setList] = useState<AuthList[]>(mock);
   const listKey = list.map(({ name }) => name);
   return (
